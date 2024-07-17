@@ -59,12 +59,9 @@ jobs:
       # - name: Snyk Code test
       #   run: snyk code test --sarif > snyk-code.sarif # || true
 
-      - name: Echo my key please
-        run: echo ${{env.SNYK_TOKEN}}
-
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source monitor
-        run: snyk auth 14bc9b71-4f1f-455c-a333-fcb03cb1ed75 && snyk monitor --all-projects 
+        run: snyk auth ${{ env.SNYK_TOKEN }} && snyk monitor --all-projects 
 
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
         # Use || true to not fail the pipeline.
