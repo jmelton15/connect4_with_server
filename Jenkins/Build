@@ -4,9 +4,9 @@ pipeline {
     environment {
         // Set your ACR login server URL.
         APP_NAME = 'connect4'
-        // ACR_LOGIN_SERVER = credentials('ACR_LOGIN_SERVER')
-        CR_SERVER = credentials('CR_ADDRESS')
-        PORT = credentials('CR_PORT')
+        ACR_LOGIN_SERVER = credentials('ACR_LOGIN_SERVER')
+        // CR_SERVER = credentials('CR_ADDRESS')
+        // PORT = credentials('CR_PORT')
     }
     
     stages {
@@ -42,7 +42,7 @@ pipeline {
                 // }
                 script {
                     // Use the ACR credentials stored in Jenkins (ID: 'ACR_CREDS') to push the image.
-                    docker.withRegistry("http://${CR_SERVER}:${PORT}", 'CR_CREDS') {
+                    docker.withRegistry("http://${CR_SERVER}:${PORT}", 'ACR_CREDS') {
                         dockerImage.push()
                     }
                 }
