@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set your ACR login server URL.
         APP_NAME = 'connect4'
-        ACR_LOGIN_SERVER = credentials('ACR_LOGIN_SERVER_ID')
+        ACR_LOGIN_SERVER = credentials('ACR_LOGIN_SERVER')
     }
     
     stages {
