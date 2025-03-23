@@ -42,7 +42,7 @@ pipeline {
                 // }
                 script {
                     // Use the ACR credentials stored in Jenkins (ID: 'ACR_CREDS') to push the image.
-                    docker.withRegistry("https://${CR_SERVER}:${PORT}", 'CR_CREDS') {
+                    docker.withRegistry("http://${CR_SERVER}:${PORT}", 'CR_CREDS') {
                         dockerImage.push()
                     }
                 }
