@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         // Set your ACR login server URL.
-        ACR_LOGIN_SERVER = credentials('ACR_SERVER')
         APP_NAME = 'connect4'
     }
     
@@ -18,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image and tag it using the ACR login server and build number.
-                    dockerImage = docker.build("${env.ACR_LOGIN_SERVER}/${env.APP_NAME}:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${env.ACR_LOGIN_SERVER}/${env.APP_NAME}:${env.BUILD_VERSION}")
                 }
             }
         }
