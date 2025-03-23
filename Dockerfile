@@ -2,7 +2,7 @@ FROM redhat/ubi9
 
 USER root
 RUN dnf update -y && \
-    dnf install -y curl && \
+    dnf install -y --allowerasing curl && \
     dnf install -y nodejs && \
     dnf clean all
 
