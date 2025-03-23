@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Set your ACR login server URL.
         APP_NAME = 'connect4'
+        ACR_LOGIN_SERVER = credentials('ACR_LOGIN_SERVER_ID')
     }
     
     stages {
@@ -15,6 +16,12 @@ pipeline {
         // }
         stage('Build Docker Image') {
             steps {
+                // withCredentials([string(credentialsId: 'ACR_LOGIN_SERVER', variable: 'ACR_LOGIN_SERVER')]) {
+                //     script {
+                //         // Build Docker image and tag it using the ACR login server and build number.
+                //         dockerImage = docker.build("${ACR_LOGIN_SERVER}/${env.APP_NAME}:${env.BUILD_VERSION}")
+                //     }
+                // }
                 script {
                     // Build Docker image and tag it using the ACR login server and build number.
                     dockerImage = docker.build("${ACR_LOGIN_SERVER}/${env.APP_NAME}:${env.BUILD_VERSION}")
@@ -23,6 +30,14 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
+                // withCredentials([string(credentialsId: 'ACR_LOGIN_SERVER', variable: 'ACR_LOGIN_SERVER')]) {
+                //     script {
+                //         // Use the ACR credentials stored in Jenkins (ID: 'ACR_CREDS') to push the image.
+                //         docker.withRegistry("https://$ACR_LOGIN_SERVER", 'ACR_CREDS') {
+                //             dockerImage.push()
+                //         }
+                //     }
+                // }
                 script {
                     // Use the ACR credentials stored in Jenkins (ID: 'ACR_CREDS') to push the image.
                     docker.withRegistry("https://$ACR_LOGIN_SERVER", 'ACR_CREDS') {
